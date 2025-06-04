@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 """
 血糖监测云端系统启动入口
 Glucose Monitoring Cloud System Entry Point
@@ -13,7 +12,7 @@ app = create_app(os.getenv('FLASK_CONFIG', 'development'))
 if __name__ == '__main__':
     # 开发环境配置
     host = os.getenv('FLASK_HOST', '0.0.0.0')
-    port = int(os.getenv('FLASK_PORT', 5000))
+    port = int(os.getenv('FLASK_PORT', 80))
     debug = os.getenv('FLASK_DEBUG', 'True').lower() == 'true'
     
     print(f"Starting Glucose Monitoring API Server...")
