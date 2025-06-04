@@ -88,20 +88,17 @@ class DeviceRegistrationSchema(Schema):
     """设备注册验证模式"""
     
     device_id = fields.Str(
-        required=True, 
-        validate=validate.Length(min=1, max=100, error="设备ID长度必须在1-100字符之间")
+        required=True,
+        validate=validate.Length(min=1, max=100)
     )
     user_id = fields.Str(required=True, validate=validate.Length(min=1, max=100))
     device_name = fields.Str(
-        required=True, 
-        validate=validate.Length(min=1, max=100, error="设备名称长度必须在1-100字符之间")
+        required=True,
+        validate=validate.Length(min=1, max=100)
     )
     device_type = fields.Str(
         required=True,
-        validate=validate.OneOf(
-            ['glucose_meter', 'cgm', 'insulin_pump', 'mobile_app'], 
-            error="设备类型必须是glucose_meter、cgm、insulin_pump或mobile_app"
-        )
+        validate=validate.OneOf(['glucose_meter', 'cgm', 'insulin_pump', 'mobile_app'])
     )
     manufacturer = fields.Str(validate=validate.Length(max=100), allow_none=True)
     model = fields.Str(validate=validate.Length(max=100), allow_none=True)

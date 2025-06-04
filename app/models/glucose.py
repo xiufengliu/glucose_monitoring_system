@@ -71,12 +71,12 @@ class GlucoseRecordSchema(Schema):
     user_id = fields.Str(required=True, validate=validate.Length(min=1, max=100))
     timestamp = fields.DateTime(required=True, format='iso')
     glucose_value = fields.Float(
-        required=True, 
-        validate=validate.Range(min=0.1, max=50.0, error="血糖值必须在0.1-50.0之间")
+        required=True,
+        validate=validate.Range(min=0.1, max=50.0)
     )
     unit = fields.Str(
-        required=True, 
-        validate=validate.OneOf(['mmol/L', 'mg/dL'], error="单位必须是mmol/L或mg/dL")
+        required=True,
+        validate=validate.OneOf(['mmol/L', 'mg/dL'])
     )
     device_id = fields.Str(validate=validate.Length(max=100), allow_none=True)
     note = fields.Str(validate=validate.Length(max=500), allow_none=True)
@@ -107,7 +107,7 @@ class GlucoseQuerySchema(Schema):
     start_date = fields.DateTime(format='iso', allow_none=True)
     end_date = fields.DateTime(format='iso', allow_none=True)
     device_id = fields.Str(allow_none=True)
-    page = fields.Int(validate=validate.Range(min=1), missing=1)
-    per_page = fields.Int(validate=validate.Range(min=1, max=100), missing=20)
-    sort_by = fields.Str(validate=validate.OneOf(['timestamp', 'glucose_value', 'created_at']), missing='timestamp')
-    sort_order = fields.Str(validate=validate.OneOf(['asc', 'desc']), missing='desc')
+    page = fields.Int(validate=validate.Range(min=1), load_default=1)
+    per_page = fields.Int(validate=validate.Range(min=1, max=100), load_default=20)
+    sort_by = fields.Str(validate=validate.OneOf(['timestamp', 'glucose_value', 'created_at']), load_default='timestamp')
+    sort_order = fields.Str(validate=validate.OneOf(['asc', 'desc']), load_default='desc')

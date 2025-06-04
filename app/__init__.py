@@ -19,15 +19,15 @@ def create_app(config_name='development'):
     """
     应用工厂函数
     Application Factory Function
-    
+
     Args:
         config_name (str): 配置环境名称 ('development', 'testing', 'production')
-    
+
     Returns:
         Flask: 配置好的Flask应用实例
     """
     app = Flask(__name__)
-    
+
     # 加载配置
     from app.config import config
     app.config.from_object(config[config_name])

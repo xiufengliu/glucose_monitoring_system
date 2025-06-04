@@ -93,18 +93,18 @@ class UserRegistrationSchema(Schema):
     """用户注册验证模式"""
     
     username = fields.Str(
-        required=True, 
-        validate=validate.Length(min=3, max=50, error="用户名长度必须在3-50字符之间")
+        required=True,
+        validate=validate.Length(min=3, max=50)
     )
-    email = fields.Email(required=True, error="请输入有效的邮箱地址")
+    email = fields.Email(required=True)
     password = fields.Str(
-        required=True, 
-        validate=validate.Length(min=6, max=128, error="密码长度必须在6-128字符之间")
+        required=True,
+        validate=validate.Length(min=6, max=128)
     )
     full_name = fields.Str(validate=validate.Length(max=100), allow_none=True)
     age = fields.Int(validate=validate.Range(min=1, max=150), allow_none=True)
     gender = fields.Str(
-        validate=validate.OneOf(['male', 'female', 'other'], error="性别必须是male、female或other"),
+        validate=validate.OneOf(['male', 'female', 'other']),
         allow_none=True
     )
     phone = fields.Str(validate=validate.Length(max=20), allow_none=True)
