@@ -28,7 +28,7 @@ def success_response(data: Any = None, message: str = "操作成功",
     if data is not None:
         response["data"] = data
     
-    return jsonify(response), status_code
+    return response, status_code
 
 
 def error_response(message: str = "操作失败", details: Any = None, 
@@ -52,7 +52,7 @@ def error_response(message: str = "操作失败", details: Any = None,
     if details is not None:
         response["details"] = details
     
-    return jsonify(response), status_code
+    return response, status_code
 
 
 def paginated_response(data: list, pagination: Dict[str, Any], 
@@ -71,11 +71,13 @@ def paginated_response(data: list, pagination: Dict[str, Any],
     response = {
         "status": "success",
         "message": message,
-        "data": data,
-        "pagination": pagination
+        "data": {
+            "records": data,
+            "pagination": pagination
+        }
     }
     
-    return jsonify(response), 200
+    return response, 200
 
 
 def validation_error_response(errors: Dict[str, Any]) -> tuple:

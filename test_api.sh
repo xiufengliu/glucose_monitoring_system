@@ -4,7 +4,7 @@
 # Glucose Monitoring API Test Script
 
 # 设置API基础URL
-API_BASE="http://8.140.20.18:5000"
+API_BASE="http://localhost:5000"
 
 # 颜色输出
 RED='\033[0;31m'
