@@ -14,7 +14,7 @@ app = create_app(config_name)
 if __name__ == '__main__':
     # 服务器配置
     host = '0.0.0.0'
-    port = 80
+    port = 5000
     debug = True
 
     print(f"Starting Glucose Monitoring API Server...")
