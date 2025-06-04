@@ -44,7 +44,13 @@ pip install --upgrade pip
 
 # 安装依赖
 echo "安装Python依赖包..."
-pip install -r requirements.txt
+if pip install -r requirements.txt; then
+    echo "依赖安装成功"
+else
+    echo "标准依赖安装失败，尝试使用最小依赖..."
+    pip install -r requirements-minimal.txt
+    echo "最小依赖安装完成"
+fi
 
 # 创建必要的目录
 echo "创建必要的目录..."

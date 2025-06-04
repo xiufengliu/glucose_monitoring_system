@@ -1,0 +1,31 @@
+# Minimal requirements for running the glucose monitoring system
+# Use this if you encounter version conflicts with requirements.txt
+
+# Core Flask dependencies
+Flask
+Flask-PyMongo
+Flask-RESTX
+Flask-JWT-Extended
+Flask-CORS
+
+# Database
+pymongo
+
+# Data validation
+marshmallow
+
+# Security
+bcrypt
+PyJWT
+
+# Configuration
+python-dotenv
+
+# Utilities
+python-dateutil
+requests
+click
+
+# Testing (optional)
+pytest
+pytest-flask
