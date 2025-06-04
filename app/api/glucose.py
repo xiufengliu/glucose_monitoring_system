@@ -54,7 +54,6 @@ class GlucoseListResource(Resource):
     
     @glucose_ns.doc('create_glucose_record')
     @glucose_ns.expect(glucose_input_model)
-    @glucose_ns.marshal_with(glucose_output_model, code=201)
     @validate_json
     def post(self):
         """
@@ -90,7 +89,6 @@ class GlucoseListResource(Resource):
             )
     
     @glucose_ns.doc('get_glucose_records')
-    @glucose_ns.marshal_list_with(glucose_output_model)
     def get(self):
         """
         获取血糖记录列表
@@ -131,7 +129,6 @@ class GlucoseResource(Resource):
     """单个血糖记录资源"""
     
     @glucose_ns.doc('get_glucose_record')
-    @glucose_ns.marshal_with(glucose_output_model)
     def get(self, record_id):
         """获取单个血糖记录"""
         try:
@@ -157,7 +154,6 @@ class GlucoseResource(Resource):
     
     @glucose_ns.doc('update_glucose_record')
     @glucose_ns.expect(glucose_input_model)
-    @glucose_ns.marshal_with(glucose_output_model)
     @validate_json
     def put(self, record_id):
         """更新血糖记录"""

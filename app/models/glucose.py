@@ -89,8 +89,8 @@ class GlucoseRecordSchema(Schema):
 
 class GlucoseRecordResponseSchema(Schema):
     """血糖记录响应模式"""
-    
-    id = fields.Str(attribute='_id', dump_only=True)
+
+    id = fields.Method("get_id", dump_only=True)
     user_id = fields.Str()
     timestamp = fields.DateTime(format='iso')
     glucose_value = fields.Float()
@@ -98,6 +98,12 @@ class GlucoseRecordResponseSchema(Schema):
     device_id = fields.Str(allow_none=True)
     note = fields.Str(allow_none=True)
     created_at = fields.DateTime(format='iso')
+
+    def get_id(self, obj):
+        """获取字符串格式的ID"""
+        if hasattr(obj, '_id') and obj._id:
+            return str(obj._id)
+        return None
 
 
 class GlucoseQuerySchema(Schema):
