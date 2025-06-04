@@ -69,6 +69,64 @@ def create_app(config_name='development'):
     def health_check():
         """健康检查接口"""
         return {'status': 'ok', 'message': 'Glucose Monitoring API is running'}, 200
+
+    @app.route('/db-status')
+    def db_status():
+        """数据库连接状态检查"""
+        try:
+            # 测试MongoDB连接
+            mongo.db.command('ping')
+            return {
+                'status': 'ok',
+                'message': 'Database connection successful',
+                'database': app.config['MONGO_URI']
+            }, 200
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': 'Database connection failed',
+                'error': str(e),
+                'database': app.config['MONGO_URI']
+            }, 500
+
+    @app.route('/test-glucose', methods=['POST'])
+    def test_glucose():
+        """测试血糖数据接口（不需要数据库）"""
+        try:
+            from flask import request
+            data = request.get_json()
+
+            # 基本验证
+            required_fields = ['user_id', 'timestamp', 'glucose_value', 'unit']
+            for field in required_fields:
+                if field not in data:
+                    return {
+                        'status': 'error',
+                        'message': f'Missing required field: {field}'
+                    }, 400
+
+            # 模拟成功响应
+            return {
+                'status': 'success',
+                'message': '血糖记录创建成功（测试模式）',
+                'data': {
+                    'id': 'test_id_12345',
+                    'user_id': data['user_id'],
+                    'timestamp': data['timestamp'],
+                    'glucose_value': data['glucose_value'],
+                    'unit': data['unit'],
+                    'device_id': data.get('device_id'),
+                    'note': data.get('note'),
+                    'created_at': '2025-06-04T14:30:00Z'
+                }
+            }, 201
+
+        except Exception as e:
+            return {
+                'status': 'error',
+                'message': 'Test endpoint error',
+                'error': str(e)
+            }, 500
     
     # 注册CLI命令
     from app.utils.cli import register_cli_commands
